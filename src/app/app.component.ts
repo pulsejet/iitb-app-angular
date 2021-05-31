@@ -200,6 +200,17 @@ export class AppComponent implements OnDestroy, OnInit {
     if (this.mobileQuery.matches) { this.toggleSidebar(); }
   }
 
+  /** Redirects to Google login */
+  glogin() {
+    if (!this.router.url.includes('login')) {
+      const path = [this.router.url];
+      localStorage.setItem(this.dataService.LOGIN_REDIR, this.dataService.EncodeObject(path));
+    }
+
+    window.location.href = this.dataService.GetGoogleURL();
+  }
+
+
   /** Redirects to login */
   login() {
     if (!this.router.url.includes('login')) {

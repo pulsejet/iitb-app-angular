@@ -27,6 +27,12 @@ const SSOHOST = environment.sso_host;
 /** SSO client id */
 const CLIENT_ID = environment.sso_client_id;
 
+/** Google client id */
+const GOOGLE_CLIENT_ID = environment.google_client_id;
+
+/** Google redirect address */
+const GOOGLE_REDIR = environment.google_redir;
+
 /** Main data service */
 @Injectable()
 export class DataService {
@@ -306,6 +312,15 @@ export class DataService {
     return `${SSOHOST}?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}&redirect_uri=${SSO_REDIR}`;
   }
 
+  GetGoogleURL() {
+    const endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+    const clientid = GOOGLE_CLIENT_ID;
+    const redir = GOOGLE_REDIR;
+    const scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid';
+
+    return `${endpoint}?client_id=${clientid}&response_type=code&scope=${scope}&redirect_uri=${redir}`;
+  }
+
   /** Tries to authenticate with the given code */
   AuthenticateSSO(code: string) {
     return this.FireGET(API.Login, {code: code, redir: SSO_REDIR});
@@ -491,4 +506,9 @@ export class DataService {
       }
     });
   }
+
+  AuthenticateGLogin(code: string) {
+    return this.FireGET(API.GLogin, {code: code, redir: SSO_REDIR});
+  }
+
 }

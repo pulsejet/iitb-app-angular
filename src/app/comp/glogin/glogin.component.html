@@ -1,0 +1,18 @@
+<app-xunk-spinner *ngIf="authenticating || error" [error]="error"></app-xunk-spinner>
+
+<div class="main" *ngIf="!authenticating && !error">
+  <div class="head">
+    Follow events, get updates on internships, placements and more. Login with your GSuite account to continue.
+  </div>
+  <br/>
+  <div class="head">
+    Note: Only ldap@iitb.ac.in google account will allow login, other gmail account will show 403 error
+  </div>
+
+  <button mat-raised-button
+          (click)='login()'
+          color="accent"
+          class="login-button">
+      GOOGLE LOG IN
+  </button>
+</div>
